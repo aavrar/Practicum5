@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Loader2, BookOpen } from 'lucide-react';
 import { UserTensor } from '@/types';
+import { NarrativeWeaver } from './NarrativeWeaver';
 
 interface PremiseGeneratorProps {
     tensor: UserTensor;
@@ -92,6 +93,8 @@ export function PremiseGenerator({ tensor }: PremiseGeneratorProps) {
                                 </div>
                             </div>
                         </div>
+
+                        <NarrativeWeaver tensor={tensor} premise={premise} />
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -1,16 +1,23 @@
+'use client';
+
+import React, { useState } from 'react';
 import { MOCK_USER_TENSOR } from '@/lib/mockData';
-import { UserTensorVisualization } from '@/components/tensor/UserTensorVisualization';
-import { PremiseGenerator } from '@/components/tensor/PremiseGenerator';
+import { AmbientHome } from '@/components/interface/AmbientHome';
+import { SplitScreen } from '@/components/interface/SplitScreen';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
-      <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+  const [view, setView] = useState<'home' | 'writing'>('home');
 
-      <div className="relative z-10 py-20">
-        <UserTensorVisualization tensor={MOCK_USER_TENSOR} />
-        <PremiseGenerator tensor={MOCK_USER_TENSOR} />
-      </div>
+  return (
+    <main className="min-h-screen overflow-hidden selection:bg-[rgb(var(--accent-rgb))]/30 selection:text-white">
+      <AnimatePresence mode="wait">
+        {view === 'home' ? (
+          <AmbientHome key="home" tensor={MOCK_USER_TENSOR} onStart={() => setView('writing')} />
+        ) : (
+          <SplitScreen key="writing" tensor={MOCK_USER_TENSOR} />
+        )}
+      </AnimatePresence>
     </main>
   );
 }
